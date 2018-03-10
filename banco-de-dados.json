@@ -1,0 +1,24 @@
+{
+  "categoria": [
+    {
+      "id": 1,
+      "descricao": "AAAAAA",
+      "ativo": "S"
+    },
+    {
+      "id": 2,
+      "descricao": "BBBABB",
+      "ativo": "N"
+    },
+    {
+      "id": 3,
+      "descricao": "CCCCCC",
+      "ativo": "S"
+    },
+    {
+      "id": 4,
+      "descricao": "DDDCDD",
+      "ativo": "N"
+    }
+  ]
+}
