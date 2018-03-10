@@ -17,8 +17,9 @@ export class CategoriaInserirComponent implements OnInit {
     ativo: new FormControl('S')
   });
 
-  public categoriaInseridaSucesso: Categoria = undefined;
-  public categoriaInseridaErro: boolean = false;
+  public categoriaInserida: Categoria = undefined;
+  public categoriaInseridaMensagemSucesso: string = undefined;
+  public categoriaInseridaMensageErro: string = undefined;
 
   constructor(private categoriaService: CategoriaService) { }
 
@@ -37,7 +38,7 @@ export class CategoriaInserirComponent implements OnInit {
       .subscribe( 
         (categoria: Categoria) => 
           {
-            this.categoriaInseridaSucesso = categoria
+            this.categoriaInserida = categoria
             this.limpar();
             this.inclusaoComSucesso();
           },
@@ -56,7 +57,7 @@ export class CategoriaInserirComponent implements OnInit {
   }
 
   public removerErro(): void {
-    this.categoriaInseridaErro = false;
+    this.categoriaInseridaMensageErro = undefined;
   }
 
   private getCategoriaFromForm(): Categoria {
@@ -68,13 +69,15 @@ export class CategoriaInserirComponent implements OnInit {
   }
 
   private inclusaoComSucesso(): void {
+    this.categoriaInseridaMensagemSucesso = `A categoria ${this.categoriaInserida.descricao} froi criada com sucesso`;
     setTimeout( () => {
-      this.categoriaInseridaSucesso = undefined;
+      this.categoriaInserida = undefined;
+      this.categoriaInseridaMensagemSucesso = undefined;
     }, 3000)
   }
 
   private inclusaoComErro(): void {
-    this.categoriaInseridaErro = true;
+    this.categoriaInseridaMensageErro = "Ocorreu um erro ao inserir a categoria. Tente mais tarde.";
   }
 
 

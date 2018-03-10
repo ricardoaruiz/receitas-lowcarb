@@ -21,7 +21,20 @@ export class CategoriaService {
   // URL base para o recurso categoria
   private categoriaBaseUrl: string = `${environment.apiBaseUrl}/categoria`;
 
-  constructor(private http: HttpClient) { }
+  //Header para chamadas http que necessitem de bdy (POST, PUT, PATCH)
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
+
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  public buscarPorId(id: number): Observable<Categoria> {
+    return this.http.get<Categoria>(`${this.categoriaBaseUrl}?id=${id}`);
+  }
 
   /**
    * Consulta os dados de categoria
@@ -40,12 +53,11 @@ export class CategoriaService {
   }
 
   public inserir(categoria: Categoria): Observable<Categoria> {    
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
-    return this.http.post<Categoria>(this.categoriaBaseUrl, categoria, httpOptions);
+    return this.http.post<Categoria>(this.categoriaBaseUrl, categoria, this.httpOptions);
+  }
+
+  public alterar(categoria: Categoria): Observable<Categoria> {
+    return this.http.put<Categoria>(`${this.categoriaBaseUrl}/${categoria.id}`, categoria, this.httpOptions );
   }
 
   /**

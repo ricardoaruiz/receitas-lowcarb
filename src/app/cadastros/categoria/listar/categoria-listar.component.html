@@ -1,3 +1,9 @@
+<!-- Mensagem de feedback de sucesso e erro -->
+<app-mensagem-feedback 
+  [mensagemErro]=categoriaConsultaMensageErro
+  (fecharErro)="removerErro()">
+</app-mensagem-feedback>
+
 <div id="accordion">
   <div class="card">
 
@@ -78,7 +84,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let categoria of categorias">
+      <tr *ngFor="let categoria of categorias" [routerLink]="['alterar', categoria.id]">
         <td>{{categoria.descricao}}</td>
         <td>{{categoria.ativo === 'S' ? 'Sim' : 'Não'}}</td>
       </tr>         

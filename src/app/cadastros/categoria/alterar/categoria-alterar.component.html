@@ -1,7 +1,7 @@
 <!-- Mensagem de feedback de sucesso e erro -->
 <app-mensagem-feedback 
-  [mensagemSucesso]=categoriaInseridaMensagemSucesso 
-  [mensagemErro]=categoriaInseridaMensageErro
+  [mensagemSucesso]=categoriaAlteradaMensagemSucesso 
+  [mensagemErro]=categoriaAlteradaMensageErro
   (fecharErro)="removerErro()">
 </app-mensagem-feedback>
 
@@ -12,7 +12,7 @@
       <div class="card-header" id="headingFilter">
         <h5 class="mb-0">
           <h5 data-toggle="collapse" data-target="#collapseFilter" aria-expanded="true" aria-controls="collapseFilter">
-            Inserir - Categoria
+            Alterar - Categoria
           </h5>
         </h5>
       </div>
@@ -21,8 +21,10 @@
       <div id="collapseFilter" class="collapse show" aria-labelledby="headingFilter" data-parent="#accordion">
         <div class="card-body">
   
-          <form novalidate [formGroup]="formInserirCategoria" (ngSubmit)="confirmar()">
+          <form novalidate [formGroup]="formAlterarCategoria" (ngSubmit)="confirmar()">
   
+            <input type="hidden" name="id" formControlName="id">
+
             <!-- campo descricao -->
             <div class="row">
               <div class="col">
@@ -33,13 +35,13 @@
                   formControlName="descricao">
 
                   <!-- mensagem de campo obrigatório -->
-                  <div *ngIf="formInserirCategoria.controls['descricao'].touched">
+                  <div *ngIf="formAlterarCategoria.controls['descricao'].touched">
                     <small class="text text-danger" 
-                      *ngIf="formInserirCategoria.controls['descricao'].errors && formInserirCategoria.controls['descricao'].errors.required">
+                      *ngIf="formAlterarCategoria.controls['descricao'].errors && formAlterarCategoria.controls['descricao'].errors.required">
                         Campo obrigatório
                     </small>
                     <small class="text text-success"
-                      *ngIf="!formInserirCategoria.controls['descricao'].errors">
+                      *ngIf="!formAlterarCategoria.controls['descricao'].errors">
                         Ok
                     </small>
                   </div>
@@ -63,11 +65,7 @@
   
             <!-- Botões -->
             <div class="row">
-              <div class="col">
-                <button type="button" class="btn btn-primary" (click)="limpar()">
-                  Limpar
-                </button>
-  
+              <div class="col"> 
                 <button type="submit" class="btn btn-primary">
                   Confirmar
                 </button>

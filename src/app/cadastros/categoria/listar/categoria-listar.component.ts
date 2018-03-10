@@ -12,6 +12,9 @@ import { CategoriaService }  from '../service/categoria.service';
 })
 export class CategoriaListarComponent implements OnInit {
 
+  // Mensagem de erro caso ocorra problema na consulta das categorias.
+  public categoriaConsultaMensageErro: string = undefined;
+
   // Formulário de consulta de categorias (ReactiveForm)
   public formFiltroCategoria = new FormGroup({
     descricao : new FormControl(),
@@ -32,9 +35,18 @@ export class CategoriaListarComponent implements OnInit {
    */
   public buscar(): void {
     this.categoriaService.consultar(this.getCategoriaFiltro())
-      .subscribe( (categorias: Array<Categoria>) => {
-        this.categorias = categorias;
-      })
+      .subscribe( 
+        (categorias: Array<Categoria>) => {
+          this.categorias = categorias;
+        },
+        (erro: any) => {          
+          this.categoriaConsultaMensageErro = 'Ocorreu um erro ao consultar as categorias. Tente mais tarde.'          
+        }
+      )
+  }
+
+  public alterar(categoria: Categoria): void {
+    console.log(categoria);    
   }
 
   /**
@@ -43,6 +55,14 @@ export class CategoriaListarComponent implements OnInit {
   public limpar(): void {
     this.formFiltroCategoria.reset();
     this.categorias = [];
+  }
+
+  /**
+   * Ao fechar a mensagem de erro esse método é disparado para limpar
+   * a mensagem na variável do componente.
+   */
+  public removerErro(): void {    
+    this.categoriaConsultaMensageErro = undefined;
   }
 
   /**
