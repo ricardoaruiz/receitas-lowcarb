@@ -3,7 +3,26 @@
 </header>
 <body>
     <div class="container-fluid">
-        <router-outlet></router-outlet>
+        <div *ngIf="loading">
+            <div class="row">
+                <div class="col-4 offset-4">
+                        <div class="d-flex justify-content-center">
+                            <h4>Carregando...</h4>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                    role="progressbar" 
+                                    aria-valuenow="100" 
+                                    aria-valuemin="0" 
+                                    aria-valuemax="100" 
+                                    style="width: 100%">
+                            </div>
+                        </div>            
+                    <!-- </div>     -->
+                </div>
+            </div>
+        </div>
+        <router-outlet *ngIf="!loading"></router-outlet>
     </div>
 </body>
 <footer>
