@@ -36,14 +36,16 @@ export class CategoriaAlterarComponent implements OnInit {
 
           //Varre todos os campos do formulário e seta os valores vindos da consulta realizada
           Object.keys(this.formAlterarCategoria.controls).forEach(key => {
-            this.formAlterarCategoria.get(key).setValue(categoriaEncontrada[key]);
+            if(this.formAlterarCategoria.get(key)) {
+              this.formAlterarCategoria.get(key).setValue(categoriaEncontrada[key]);
+            }
           });
       })
     })
   }
 
   public confirmar(): void {
-    this.categoriaServico.alterar(this.getCategoriaFromForm())
+    this.categoriaServico.alterar(Categoria.buildFromFromGroup(this.formAlterarCategoria))
       .subscribe( 
         (categoria: Categoria) => {
           this.trataAlteracaoSucesso();
@@ -65,14 +67,6 @@ export class CategoriaAlterarComponent implements OnInit {
     setTimeout(() => {
       this.categoriaAlteradaMensagemSucesso = undefined;
     }, 3000);
-  }
-
-  private getCategoriaFromForm(): Categoria {
-    return new Categoria(
-      this.formAlterarCategoria.controls['id'].value,
-      this.formAlterarCategoria.controls['descricao'].value,
-      this.formAlterarCategoria.controls['ativo'].value
-    )
   }
 
 }

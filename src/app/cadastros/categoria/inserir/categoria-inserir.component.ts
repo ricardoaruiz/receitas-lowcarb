@@ -34,7 +34,7 @@ export class CategoriaInserirComponent implements OnInit {
       return;
     }
 
-    this.categoriaService.inserir(this.getCategoriaFromForm())
+    this.categoriaService.inserir(Categoria.buildFromFromGroup(this.formInserirCategoria))
       .subscribe( 
         (categoria: Categoria) => 
           {
@@ -58,14 +58,6 @@ export class CategoriaInserirComponent implements OnInit {
 
   public removerErro(): void {
     this.categoriaInseridaMensageErro = undefined;
-  }
-
-  private getCategoriaFromForm(): Categoria {
-    return new Categoria(
-      0,
-      this.formInserirCategoria.controls['descricao'].value,
-      this.formInserirCategoria.controls['ativo'].value
-    )
   }
 
   private inclusaoComSucesso(): void {

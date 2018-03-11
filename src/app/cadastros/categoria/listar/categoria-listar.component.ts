@@ -47,8 +47,9 @@ export class CategoriaListarComponent implements OnInit {
    * Realiza a consulta das categorias em função do filtro informado
    */
   public buscar(): void {
+    this.removeSelecaoCategoriaGrid();
     this.removerErro();
-    this.categoriaService.consultar(this.getCategoriaFiltro())
+    this.categoriaService.consultar(Categoria.buildFromFromGroup(this.formFiltroCategoria))
       .subscribe( 
         (categorias: Array<Categoria>) => {
           this.categorias = categorias;
@@ -64,7 +65,7 @@ export class CategoriaListarComponent implements OnInit {
    */
   public limpar(): void {
     this.categorias = [];
-    this.categoriaId = undefined;
+    this.removeSelecaoCategoriaGrid();
     this.formFiltroCategoria.reset();
     this.removeSucesso();
     this.removerErro();
@@ -114,17 +115,6 @@ export class CategoriaListarComponent implements OnInit {
   }
 
   /**
-   * Monta um objeto categoria a partir do formulário de consulta recebido.
-   */
-  private getCategoriaFiltro(): Categoria {
-    return new Categoria(
-      0,
-      this.formFiltroCategoria.value.descricao,
-      this.formFiltroCategoria.value.ativo
-    )
-  }
-
-  /**
    * Executado sempre após a chamada do serviço de remoção de categoria
    * para refazer a consulta e limpar a mensagem de sucesso.
    */
@@ -134,6 +124,13 @@ export class CategoriaListarComponent implements OnInit {
     setTimeout(() => {
       this.removeSucesso();
     }, 3000);
+  }
+
+  /**
+   * Limpa o atributo que indica qual linha do grid está selecionado.
+   */
+  private removeSelecaoCategoriaGrid(): void {
+    this.categoriaId = undefined;
   }
 
 }
