@@ -109,20 +109,11 @@
   </table>
 </div>
 
-<!-- Modal de exclusão -->
-<div class="modal fade" id="modalExclusao" tabindex="-1" role="dialog" aria-labelledby="modalExclusaoLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalExclusaoLabel">Exclusão de Categoria</h5>
-      </div>
-      <div class="modal-body">
-        Deseja remover a categoria selecionada?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-        <button type="button" class="btn btn-primary" (click)="excluir()" data-dismiss="modal">Sim</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- Modal de confirmação de exclusão -->
+<app-modal-confirmacao 
+  [idModal]=atributosModalExclusao.idModalExclusao
+  [titulo]=atributosModalExclusao.tituloModalExclusao
+  [mensagem]=atributosModalExclusao.mensagemModalExclusao
+  (acaoConfirmar)="excluir($event)"
+  >
+</app-modal-confirmacao>

@@ -30,6 +30,13 @@ export class CategoriaListarComponent implements OnInit {
   //Id da categoria selecionada no grid de resultado da consulta
   public categoriaId: number = undefined;
 
+  //Atributos para criação do modal de confirmação de exclusão de categoria.
+  public atributosModalExclusao: any = {
+    idModalExclusao: "modalExclusao",
+    tituloModalExclusao: "Exclusão de Categoria",
+    mensagemModalExclusao: "Deseja remover a categoria selecionada?"
+  }
+
   constructor(private categoriaService: CategoriaService) { }
 
   ngOnInit() {
@@ -73,14 +80,26 @@ export class CategoriaListarComponent implements OnInit {
     }
   }
 
+  /**
+   * Remove a mensagem de sucesso de remoção de categoria
+   */
   public removeSucesso(): void {
     this.categoriaConsultaMensagemSucesso = undefined;
   }
 
+  /**
+   * Executado sempre que o radio button de uma linha do grid
+   * de resultado da consulta for clicado
+   * @param categoriaId 
+   */
   public selecionarCategoriaGrid(categoriaId: number): void {
     this.categoriaId = categoriaId;    
   }
 
+  /**
+   * Executado no botão de confirmar do modal de confirmação 
+   * de exclusão de categoria
+   */
   public excluir(): void {
     this.categoriaService.excluir(this.categoriaId)
       .subscribe( 
@@ -105,6 +124,10 @@ export class CategoriaListarComponent implements OnInit {
     )
   }
 
+  /**
+   * Executado sempre após a chamada do serviço de remoção de categoria
+   * para refazer a consulta e limpar a mensagem de sucesso.
+   */
   private exclusaoCategoriaSucesso(): void {
     this.categoriaConsultaMensagemSucesso = 'A categoria foi removida com sucesso';
     this.buscar();

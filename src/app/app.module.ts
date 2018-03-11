@@ -12,6 +12,7 @@ import { MenuComponent } from './layout/menu/menu.component';
 import { HomeComponent } from './home/home.component';
 import { RodapeComponent } from './layout/rodape/rodape.component';
 import { MensagemFeedbackComponent } from './layout/mensagem-feedback/mensagem-feedback.component';
+import { ModalConfirmacaoComponent } from './layout/modal-confirmacao/modal-confirmacao.component';
 
 //Categoria
 import { CategoriaInserirComponent } from './cadastros/categoria/inserir/categoria-inserir.component';
@@ -28,7 +29,8 @@ import { CategoriaAlterarComponent } from './cadastros/categoria/alterar/categor
     CategoriaInserirComponent,
     CategoriaListarComponent,
     MensagemFeedbackComponent,
-    CategoriaAlterarComponent
+    CategoriaAlterarComponent,
+    ModalConfirmacaoComponent
   ],
   imports: [
     BrowserModule,
