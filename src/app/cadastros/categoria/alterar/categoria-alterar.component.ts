@@ -46,7 +46,7 @@ export class CategoriaAlterarComponent implements OnInit {
     this.categoriaServico.alterar(this.getCategoriaFromForm())
       .subscribe( 
         (categoria: Categoria) => {
-          this.categoriaAlteradaMensagemSucesso = 'Categoria alterada com sucesso';
+          this.trataAlteracaoSucesso();
           //this.router.navigate(['/cadastro/categoria']);
         },
         (erro: any) => {
@@ -58,6 +58,13 @@ export class CategoriaAlterarComponent implements OnInit {
 
   public removerErro(): void {
     this.categoriaAlteradaMensageErro = undefined;
+  }
+
+  public trataAlteracaoSucesso(): void {
+    this.categoriaAlteradaMensagemSucesso = 'Categoria alterada com sucesso';
+    setTimeout(() => {
+      this.categoriaAlteradaMensagemSucesso = undefined;
+    }, 3000);
   }
 
   private getCategoriaFromForm(): Categoria {

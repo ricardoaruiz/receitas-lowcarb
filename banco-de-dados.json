@@ -2,48 +2,23 @@
   "categoria": [
     {
       "id": 1,
-      "descricao": "AAAAAA",
+      "descricao": "Café da manhã",
       "ativo": "S"
     },
     {
       "id": 2,
-      "descricao": "XPTO",
+      "descricao": "Almoço",
       "ativo": "S"
     },
     {
       "id": 3,
-      "descricao": "CCCCCC",
+      "descricao": "Jantar",
       "ativo": "S"
     },
     {
       "id": 4,
-      "descricao": "DDDCDD",
-      "ativo": "N"
-    },
-    {
-      "id": 5,
-      "descricao": "Teste",
+      "descricao": "Lanche",
       "ativo": "S"
-    },
-    {
-      "id": 6,
-      "descricao": "Teste1",
-      "ativo": "S"
-    },
-    {
-      "id": 7,
-      "descricao": "Teste11",
-      "ativo": "S"
-    },
-    {
-      "id": 8,
-      "descricao": "ttre",
-      "ativo": "S"
-    },
-    {
-      "id": 9,
-      "descricao": "a",
-      "ativo": "N"
     }
   ]
 }

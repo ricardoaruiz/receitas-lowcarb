@@ -4,3 +4,6 @@
 .card-header {
     cursor: pointer;
 }
+td.select-col {
+    cursor: pointer;
+}

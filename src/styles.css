@@ -5,3 +5,12 @@ input.ng-invalid.ng-touched {
 input.ng-valid.ng-touched {
     border: 1px solid green;
 }
+
+/*Para deixar os botões grandes e em uma linha quando no mobile*/
+@media all and (max-width:480px) {
+    .btn { 
+        width: 100%; 
+        display:block; 
+        margin-bottom: 5px;
+    }
+ } 

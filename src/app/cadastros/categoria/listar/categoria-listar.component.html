@@ -1,5 +1,6 @@
 <!-- Mensagem de feedback de sucesso e erro -->
 <app-mensagem-feedback 
+  [mensagemSucesso]=categoriaConsultaMensagemSucesso
   [mensagemErro]=categoriaConsultaMensageErro
   (fecharErro)="removerErro()">
 </app-mensagem-feedback>
@@ -50,18 +51,26 @@
 
           <!-- Botões -->
           <div class="row">
-            <div class="col">
+            <div class="col">              
+              <button type="submit" class="btn btn-primary">
+                  Buscar
+              </button>              
+
               <button type="button" (click)="limpar()" class="btn btn-primary">
                 Limpar
               </button>
-
+                          
               <button routerLink="/cadastro/categoria/novo" class="btn btn-primary">
                 Novo
               </button>
-
-              <button type="submit" class="btn btn-primary">
-                Buscar
-              </button>
+              
+              <button 
+                class="btn btn-primary" 
+                type="button"
+                data-toggle="modal" data-target="#modalExclusao"
+                [disabled]="categoriaId === undefined">
+                Excluir
+              </button>              
             </div>
           </div>
         </form>
@@ -76,18 +85,44 @@
 
 <!-- Resultado da consulta -->
 <div class="table-responsive" *ngIf="categorias && categorias.length">
-  <table class="table table-hover">
+  <table class="table table-hover table-bordered">
     <thead class="thead-light">
       <tr>
-        <th>Descrição</th>
-        <th>Ativo</th>
+        <th style="width: 5%">Selecione</th>
+        <th style="width: 90%">Descrição</th>
+        <th style="width: 5%">Ativo</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let categoria of categorias" [routerLink]="['alterar', categoria.id]">
-        <td>{{categoria.descricao}}</td>
-        <td>{{categoria.ativo === 'S' ? 'Sim' : 'Não'}}</td>
+      <tr *ngFor="let categoria of categorias">
+        <td style="text-align: center">
+          <input type="radio" name="categoria-sel" (click)="selecionarCategoriaGrid(categoria.id)">
+        </td>
+        <td class="select-col" [routerLink]="['alterar', categoria.id]">
+          {{categoria.descricao}}
+        </td>
+        <td class="select-col" [routerLink]="['alterar', categoria.id]">
+          {{categoria.ativo === 'S' ? 'Sim' : 'Não'}}
+        </td>
       </tr>         
     </tbody>
   </table>
+</div>
+
+<!-- Modal de exclusão -->
+<div class="modal fade" id="modalExclusao" tabindex="-1" role="dialog" aria-labelledby="modalExclusaoLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalExclusaoLabel">Exclusão de Categoria</h5>
+      </div>
+      <div class="modal-body">
+        Deseja remover a categoria selecionada?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+        <button type="button" class="btn btn-primary" (click)="excluir()" data-dismiss="modal">Sim</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -60,6 +60,10 @@ export class CategoriaService {
     return this.http.put<Categoria>(`${this.categoriaBaseUrl}/${categoria.id}`, categoria, this.httpOptions );
   }
 
+  public excluir(categoriaId: number): Observable<Categoria> {
+    return this.http.delete<Categoria>(`${this.categoriaBaseUrl}/${categoriaId}`, this.httpOptions);
+  }
+
   /**
    * Consulta os dados da API levando em consideração a implementação do JSON-SERVER
    *

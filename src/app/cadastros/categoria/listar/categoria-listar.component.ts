@@ -12,8 +12,11 @@ import { CategoriaService }  from '../service/categoria.service';
 })
 export class CategoriaListarComponent implements OnInit {
 
-  // Mensagem de erro caso ocorra problema na consulta das categorias.
+  // Mensagem de erro caso ocorra problema na tela de consulta de categorias.
   public categoriaConsultaMensageErro: string = undefined;
+
+  // Mensagem de sucesso para operações da tela de consulta de categorias.
+  public categoriaConsultaMensagemSucesso: string = undefined;
 
   // Formulário de consulta de categorias (ReactiveForm)
   public formFiltroCategoria = new FormGroup({
@@ -23,6 +26,9 @@ export class CategoriaListarComponent implements OnInit {
 
   // Resultado da consulta de categrias em função do filtro informado.
   public categorias: Categoria[];
+
+  //Id da categoria selecionada no grid de resultado da consulta
+  public categoriaId: number = undefined;
 
   constructor(private categoriaService: CategoriaService) { }
 
@@ -34,6 +40,7 @@ export class CategoriaListarComponent implements OnInit {
    * Realiza a consulta das categorias em função do filtro informado
    */
   public buscar(): void {
+    this.removerErro();
     this.categoriaService.consultar(this.getCategoriaFiltro())
       .subscribe( 
         (categorias: Array<Categoria>) => {
@@ -45,24 +52,46 @@ export class CategoriaListarComponent implements OnInit {
       )
   }
 
-  public alterar(categoria: Categoria): void {
-    console.log(categoria);    
-  }
-
   /**
    * Limpa os dados da consulta (filtro e resultado)
    */
   public limpar(): void {
-    this.formFiltroCategoria.reset();
     this.categorias = [];
+    this.categoriaId = undefined;
+    this.formFiltroCategoria.reset();
+    this.removeSucesso();
+    this.removerErro();
   }
 
   /**
    * Ao fechar a mensagem de erro esse método é disparado para limpar
    * a mensagem na variável do componente.
    */
-  public removerErro(): void {    
-    this.categoriaConsultaMensageErro = undefined;
+  public removerErro(): void {
+    if(this.categoriaConsultaMensageErro != undefined) {
+      this.categoriaConsultaMensageErro = undefined;
+    }
+  }
+
+  public removeSucesso(): void {
+    this.categoriaConsultaMensagemSucesso = undefined;
+  }
+
+  public selecionarCategoriaGrid(categoriaId: number): void {
+    this.categoriaId = categoriaId;    
+  }
+
+  public excluir(): void {
+    this.categoriaService.excluir(this.categoriaId)
+      .subscribe( 
+        (categoria: Categoria) => {
+          this.exclusaoCategoriaSucesso();
+        },
+        (error: any) => {
+          this.categoriaConsultaMensageErro = 'Problema ao remover a categoria selecionada. Tente mais tarde.';
+        }
+    )
+    console.log(this.categoriaId);    
   }
 
   /**
@@ -74,6 +103,14 @@ export class CategoriaListarComponent implements OnInit {
       this.formFiltroCategoria.value.descricao,
       this.formFiltroCategoria.value.ativo
     )
+  }
+
+  private exclusaoCategoriaSucesso(): void {
+    this.categoriaConsultaMensagemSucesso = 'A categoria foi removida com sucesso';
+    this.buscar();
+    setTimeout(() => {
+      this.removeSucesso();
+    }, 3000);
   }
 
 }

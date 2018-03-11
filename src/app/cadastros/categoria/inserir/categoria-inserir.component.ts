@@ -69,7 +69,7 @@ export class CategoriaInserirComponent implements OnInit {
   }
 
   private inclusaoComSucesso(): void {
-    this.categoriaInseridaMensagemSucesso = `A categoria ${this.categoriaInserida.descricao} froi criada com sucesso`;
+    this.categoriaInseridaMensagemSucesso = `A categoria "${this.categoriaInserida.descricao}" foi criada com sucesso`;
     setTimeout( () => {
       this.categoriaInserida = undefined;
       this.categoriaInseridaMensagemSucesso = undefined;
