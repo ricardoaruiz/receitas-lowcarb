@@ -104,7 +104,7 @@ export class CategoriaListarComponent implements OnInit {
   public excluir(): void {
     this.categoriaService.excluir(this.categoriaId)
       .subscribe( 
-        (categoria: Categoria) => {
+        () => {
           this.exclusaoCategoriaSucesso();
         },
         (error: any) => {

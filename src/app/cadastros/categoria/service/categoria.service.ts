@@ -9,15 +9,6 @@ import { environment } from '../../../../environments/environment';
 @Injectable()
 export class CategoriaService {
 
-  //Dados mockados internamente na classe de serviço
-  private categoriasMock: Categoria[] = [
-    new Categoria(1,'MOCK_INTERNA', 'S'),
-    new Categoria(2,'AAAAAA', 'S'),
-    new Categoria(3,'BBABBB', 'N'),
-    new Categoria(4,'CCCCCC', 'S'),
-    new Categoria(5,'DDCDDD', 'N'),
-  ]
-
   // URL base para o recurso categoria
   private categoriaBaseUrl: string = `${environment.apiBaseUrl}/categoria`;
 
@@ -28,44 +19,64 @@ export class CategoriaService {
     })
   };
 
+  /**
+   * Construtor da classe.
+   * 
+   * @param http Http injetado pelo Angular.
+   */
   constructor(
     private http: HttpClient
   ) { }
 
+  /**
+   * Chama a API para buscar uma categoria em função de seu id.
+   * 
+   * @param id 
+   */
   public buscarPorId(id: number): Observable<Categoria> {
     return this.http.get<Categoria>(`${this.categoriaBaseUrl}?id=${id}`);
   }
 
   /**
-   * Consulta os dados de categoria
+   * Consulta os dados de categoria.
    * 
    * @param categoriaFiltro 
    * @returns Observable<Categoria[]>
    */
   public consultar(categoriaFiltro: Categoria): Observable<Array<Categoria>> {
-    let retorno: Observable<Array<Categoria>>;
-    if(environment.useApi) {
-      retorno = this.consultaApi(categoriaFiltro);
-    } else {
-      retorno = this.consultaMock(categoriaFiltro);
-    }
-    return retorno;
+    return this.consultaApi(categoriaFiltro);    
   }
 
+  /**
+   * Chama a API para criar uma nova categoria.
+   * 
+   * @param categoria 
+   */
   public inserir(categoria: Categoria): Observable<Categoria> {    
     return this.http.post<Categoria>(this.categoriaBaseUrl, categoria, this.httpOptions);
   }
 
+  /**
+   * Chama a API para alterar uma categoria.
+   * 
+   * @param categoria 
+   */
   public alterar(categoria: Categoria): Observable<Categoria> {
     return this.http.put<Categoria>(`${this.categoriaBaseUrl}/${categoria.id}`, categoria, this.httpOptions );
   }
 
-  public excluir(categoriaId: number): Observable<Categoria> {
-    return this.http.delete<Categoria>(`${this.categoriaBaseUrl}/${categoriaId}`, this.httpOptions);
+  /**
+   * Chama a API para remover uma categoria.
+   * 
+   * @param categoriaId 
+   */
+  public excluir(categoriaId: number): Observable<void> {
+    return this.http.delete<void>(`${this.categoriaBaseUrl}/${categoriaId}`, this.httpOptions);
   }
 
   /**
-   * Consulta os dados da API levando em consideração a implementação do JSON-SERVER
+   * Consulta os dados da API levando em consideração a 
+   * implementação do JSON-SERVER.
    *
    * @param categoriaFiltro 
    * @returns Observable<Categoria[]>
@@ -88,34 +99,6 @@ export class CategoriaService {
     }
 
     return this.http.get<Array<Categoria>>(url);
-  }
-
-  /**
-   * Consulta os dados que estão mockados aqui dentro da classe de serviço
-   * 
-   * @param categoriaFiltro 
-   * @returns Observable<Categoria[]>
-   */
-  private consultaMock(categoriaFiltro: Categoria): Observable<Categoria[]> {
-    let categoriasFiltrada = 
-      this.categoriasMock.filter( (categoria: Categoria) => {
-
-        let filtroPorDescricao: boolean = true;
-        if(categoriaFiltro.descricao) {
-          filtroPorDescricao = categoria.descricao.toUpperCase().includes(categoriaFiltro.descricao.toUpperCase()) 
-            ? true : false;
-        }
-
-        let filtroPorAtivo: boolean = true;
-        if(categoriaFiltro.ativo) {
-          filtroPorAtivo = categoriaFiltro.ativo === categoria.ativo ? true : false;
-        }
-        return filtroPorDescricao && filtroPorAtivo;
-      })    
-
-      return new Observable<Array<Categoria>>( (observer) => {
-        observer.next(categoriasFiltrada);
-      });
   }
 
 }
