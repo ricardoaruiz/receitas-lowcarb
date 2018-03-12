@@ -1,0 +1,9 @@
+.row {
+    margin-bottom: 15px;
+}
+.card-header {
+    cursor: pointer;
+}
+td.select-col {
+    cursor: pointer;
+}

@@ -20,5 +20,12 @@
       "descricao": "Lanche",
       "ativo": "S"
     }
+  ],
+  "ingrediente" : [
+    {
+      "id" : 1,
+      "descricao" : "Farinha de amendoa",
+      "ativo" : "S"
+    }
   ]
 }

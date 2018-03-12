@@ -19,6 +19,9 @@ import { CategoriaInserirComponent } from './cadastros/categoria/inserir/categor
 import { CategoriaListarComponent } from './cadastros/categoria/listar/categoria-listar.component';
 import { CategoriaAlterarComponent } from './cadastros/categoria/alterar/categoria-alterar.component';
 
+//Ingrediente
+import { IngredienteListarComponent } from './cadastros/ingrediente/listar/ingrediente-listar.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { CategoriaAlterarComponent } from './cadastros/categoria/alterar/categor
     CategoriaListarComponent,
     MensagemFeedbackComponent,
     CategoriaAlterarComponent,
-    ModalConfirmacaoComponent
+    ModalConfirmacaoComponent,
+    IngredienteListarComponent
   ],
   imports: [
     BrowserModule,
