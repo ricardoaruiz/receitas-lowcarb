@@ -22,6 +22,8 @@ export class CategoriaAlterarComponent implements OnInit {
     ativo: new FormControl()
   })
 
+  private categoria: Categoria;
+
   // Mensagem de sucesso quando uma categoria é alterada.
   public categoriaAlteradaMensagemSucesso: string = undefined;
 
@@ -52,7 +54,7 @@ export class CategoriaAlterarComponent implements OnInit {
     this.activatedRoute.params.subscribe( (params) => {
       this.categoriaServico.buscarPorId(params.id)
         .subscribe( (categoria: Categoria) => {
-          this.preencheFormulario(categoria[0]);
+          this.preencheFormulario(categoria);
       })
     })
   }
@@ -61,7 +63,9 @@ export class CategoriaAlterarComponent implements OnInit {
    * Confirma a alteração de um categoria
    */
   public confirmar(): void {
-    this.categoriaServico.alterar(Categoria.buildFromFromGroup(this.formAlterarCategoria))
+    let categoria: Categoria = Categoria.buildFromFromGroup(this.formAlterarCategoria);
+    categoria.key = this.categoria.key
+    this.categoriaServico.alterar(categoria)
       .subscribe( 
         (categoria: Categoria) => {
           this.trataAlteracaoSucesso(categoria);
@@ -98,6 +102,7 @@ export class CategoriaAlterarComponent implements OnInit {
    * @param categoria 
    */
   private preencheFormulario(categoria: Categoria): void {
+    this.categoria = categoria;
     Object.keys(this.formAlterarCategoria.controls).forEach(key => {
       if(this.formAlterarCategoria.get(key)) {
         this.formAlterarCategoria.get(key).setValue(categoria[key]);

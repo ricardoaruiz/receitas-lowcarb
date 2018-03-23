@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { CategoriaInserirComponent } from './cadastros/categoria/inserir/categoria-inserir.component';
 import { CategoriaListarComponent } from './cadastros/categoria/listar/categoria-listar.component';
@@ -9,8 +10,12 @@ import { IngredienteListarComponent } from './cadastros/ingrediente/listar/ingre
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: LoginComponent
   },
+  {
+    path: 'home',
+    component: HomeComponent
+  },  
   {
     path: 'cadastro/categoria',
     component: CategoriaListarComponent

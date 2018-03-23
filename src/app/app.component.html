@@ -1,5 +1,5 @@
 <header>
-    <app-menu></app-menu>
+    <app-menu *ngIf="usuarioLogado"></app-menu>
 </header>
 <body>
     <div class="container-fluid">
@@ -26,5 +26,5 @@
     </div>
 </body>
 <footer>
-    <app-rodape></app-rodape>
+    <app-rodape *ngIf="usuarioLogado"></app-rodape>
 </footer>

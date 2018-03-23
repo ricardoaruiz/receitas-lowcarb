@@ -7,6 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 
+//Login
+import { LoginComponent } from './login/login.component';
+
 //Layout
 import { MenuComponent } from './layout/menu/menu.component';
 import { HomeComponent } from './home/home.component';
@@ -34,7 +37,8 @@ import { IngredienteListarComponent } from './cadastros/ingrediente/listar/ingre
     MensagemFeedbackComponent,
     CategoriaAlterarComponent,
     ModalConfirmacaoComponent,
-    IngredienteListarComponent
+    IngredienteListarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

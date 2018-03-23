@@ -1,11 +1,13 @@
 import { FormGroup } from '@angular/forms';
+import { UUID } from 'angular2-uuid';
 
 export class Categoria {
 
     constructor(
-        public id: number = 0,
+        public id: string = UUID.UUID(),
         public descricao?: string,
-        public ativo: string = 'S'
+        public ativo: string = 'S',
+        public key?: string
     ) {}
 
     /**

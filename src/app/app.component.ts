@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { 
   Router,
   Event as RouterEvent,
@@ -8,14 +8,18 @@ import {
   NavigationError
 } from '@angular/router'
 
+import * as firebase from 'firebase';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   public loading = true;
+
+  public usuarioLogado = false;
 
   public title = 'app';
 
@@ -25,8 +29,22 @@ export class AppComponent {
     })
   }
 
+  ngOnInit() {
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBcYY2gA_V-RAyjs1Lkl37NAODzqDDEpH0",
+      authDomain: "receitas-lowcarb.firebaseapp.com",
+      databaseURL: "https://receitas-lowcarb.firebaseio.com",
+      projectId: "receitas-lowcarb",
+      storageBucket: "receitas-lowcarb.appspot.com",
+      messagingSenderId: "839759190925"
+    };
+    firebase.initializeApp(config);
+  }
+
   // Mostra e esconde o loader para navegação nas rotas
   public navigationInterceptor(event: RouterEvent): void {
+    this.verificaUsuarioLogado();
     if (event instanceof NavigationStart) {
       this.loading = true    
     }
@@ -43,6 +61,17 @@ export class AppComponent {
     if (event instanceof NavigationError) {
       this.loading = false
     }
-}  
+  }
+
+  private verificaUsuarioLogado(): void {
+    firebase.auth().onAuthStateChanged((user: firebase.User) => {
+      if(user !== undefined && user != null) {
+        this.usuarioLogado = true;
+      } else {
+        this.usuarioLogado = false;
+      }
+    });
+        
+  }
 
 }
