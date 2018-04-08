@@ -32,12 +32,12 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // Initialize Firebase
     var config = {
-      apiKey: "AIzaSyBcYY2gA_V-RAyjs1Lkl37NAODzqDDEpH0",
-      authDomain: "receitas-lowcarb.firebaseapp.com",
-      databaseURL: "https://receitas-lowcarb.firebaseio.com",
-      projectId: "receitas-lowcarb",
-      storageBucket: "receitas-lowcarb.appspot.com",
-      messagingSenderId: "839759190925"
+      apiKey: "AIzaSyAuL3QuZiOPf78X6G9smEJfCE923onjcsg",
+      authDomain: "rar-receitas-lowcarb.firebaseapp.com",
+      databaseURL: "https://rar-receitas-lowcarb.firebaseio.com",
+      projectId: "rar-receitas-lowcarb",
+      storageBucket: "rar-receitas-lowcarb.appspot.com",
+      messagingSenderId: "192400884210"
     };
     firebase.initializeApp(config);
   }
